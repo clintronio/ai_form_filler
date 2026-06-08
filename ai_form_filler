@@ -13,8 +13,9 @@
 (function() {
      'use strict';
   // ── CONFIG ────────────────────────────────────────────
-  const ANTHROPIC_API_KEY = '<add your anthropic key here>';
+  const ANTHROPIC_API_KEY = '';
   const ANTHROPIC_MODEL = 'claude-sonnet-4-6';
+    console.log(getCRMFields());
 
   // Prove the script is running at all — visible in DevTools console
   console.log('[VA] userscript loaded, href:', location.href);
@@ -536,7 +537,7 @@
 
     // Zoho CRM input selectors — covers standard and custom fields
     const selectors = [
-      'input[name]:not([type="hidden"]):not([type="submit"]):not([type="button"])',
+      'input[name]:not([type="hidden"]):not([type="submit"]):not([type="button"])', 'input',
       'select',
       'textarea',
         '[data-zcqa]',
@@ -547,8 +548,8 @@
 
 
     document.querySelectorAll(selectors.join(',')).forEach(el => {
-        console.log(el);
-      const name = el.name || el.getAttribute('name') || el.getAttribute('id');
+console.log(el);
+      const name = el.name || el.getAttribute('name') || el.getAttribute('id') || el.getAttribute('placeholder');
       if (!name || seen.has(name) || name.startsWith('_') || name === 'search') return;
       seen.add(name);
 
